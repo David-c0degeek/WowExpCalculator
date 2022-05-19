@@ -4,9 +4,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WowExpCalculator"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime"
+        xmlns:enums="clr-namespace:WowExpCalculator.Core.Enums"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        SizeToContent="WidthAndHeight"
+        Title="Wow Exp Calculator">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="enumValues"
+                            MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Continents"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,10">Character level:</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtCharLevel" Margin="0,0,0,10" />
+
+        <Label Grid.Row="1" Grid.Column="0" Margin="0,0,0,10">Highest party member level:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtHighestPartyMemberLevel" Margin="0,0,0,10" />
+        
+        <Label Grid.Row="2" Grid.Column="0" Margin="0,0,0,10">Mob level:</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtMobLevel" Margin="0,0,0,10" />
+
+        <Label Grid.Row="3" Grid.Column="0" Margin="0,0,0,10">Party Size:</Label>
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" x:Name="cbPartySize">
+            <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+        </ComboBox>
+
+        <Label Grid.Row="4" Grid.Column="0" Margin="0,0,0,10">Continent:</Label>
+        <ComboBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,10" x:Name="cbContinent" ItemsSource="{Binding Source={StaticResource enumValues}}" />
+
+        <CheckBox Grid.Row="5" Grid.Column="0" x:Name="cbElite" Margin="0,0,0,10">Elite Mob</CheckBox>
+        <CheckBox Grid.Row="5" Grid.Column="1" x:Name="cbRested" Margin="0,0,0,10">Rested</CheckBox>
+
+        <Button Grid.Row="6" Grid.Column="0" x:Name="btnCalculate" Margin="0,0,0,10" Click="BtnCalculate_OnClick">Calculate</Button>
+
+        <Grid Grid.Row="6" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,10">Result:</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" x:Name="txtResult" MinWidth="100" Margin="0,0,0,10" />
+
+        </Grid>
+
 
     </Grid>
 </Window>

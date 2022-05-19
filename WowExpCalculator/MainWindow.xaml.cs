@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using WowExpCalculator.Core;
+using WowExpCalculator.Core.Enums;
 
 namespace WowExpCalculator
 {
@@ -23,6 +12,19 @@ namespace WowExpCalculator
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BtnCalculate_OnClick(object sender, RoutedEventArgs e)
+        {
+            var playerLevel = TbcPlayerLevel.From(ushort.Parse(txtCharLevel.Text));
+            var mobLevel = uint.Parse(txtMobLevel.Text);
+            var continent = (Continents)cbContinent.SelectedValue;
+            var highestGroupMemberLevel = TbcPlayerLevel.From(ushort.Parse(txtHighestPartyMemberLevel.Text));
+            var groupSize = cbPartySize.SelectedIndex + 1;
+            var isElite = cbElite.IsChecked ?? false;
+            var isRested = cbRested.IsChecked ?? false;
+
+            txtResult.Text = $"{ExpCalculator.CalculateExp(playerLevel, mobLevel, continent, highestGroupMemberLevel, (byte)groupSize, isElite, isRested)}";
         }
     }
 }

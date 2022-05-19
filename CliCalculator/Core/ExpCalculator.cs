@@ -1,13 +1,12 @@
-﻿using System;
-using WowExpCalculator.Core.Enums;
-using WowExpCalculator.Core.Exceptions;
+﻿using CliCalculator.Core.Enums;
+using CliCalculator.Core.Exceptions;
 
-namespace WowExpCalculator.Core;
+namespace CliCalculator.Core;
 
 public static class ExpCalculator
 {
-    public static uint CalculateExp(PlayerLevel playerLevel, uint mobLevel, Continents continent,
-        PlayerLevel highestGroupMemberLevel, byte groupSize = 1, bool isElite = false, bool isRested = false)
+    public static uint CalculateExp(TbcPlayerLevel playerLevel, uint mobLevel, Continents continent,
+        TbcPlayerLevel highestGroupMemberLevel, byte groupSize = 1, bool isElite = false, bool isRested = false)
     {
         if (IsMobGray(playerLevel, mobLevel)) return 0;
 
@@ -38,7 +37,7 @@ public static class ExpCalculator
         return (uint)(soloExp * eliteModifier + soloExp * restedModifier);
     }
 
-    private static ushort GetZeroDifference(PlayerLevel playerLevel)
+    private static ushort GetZeroDifference(TbcPlayerLevel playerLevel)
     {
         return playerLevel.Value switch
         {
@@ -58,7 +57,7 @@ public static class ExpCalculator
         };
     }
 
-    private static bool IsMobGray(PlayerLevel charLevel, uint mobLevel)
+    private static bool IsMobGray(TbcPlayerLevel charLevel, uint mobLevel)
     {
         var playerLevel = charLevel.Value;
 
